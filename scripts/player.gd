@@ -1,81 +1,52 @@
 extends CharacterBody2D
 
-@onready var player_sprite = $AnimatedSprite2D
-@export var SPEED: float = 150
-@export var SPRINT_MULT: float = 2
+@export var speed = 150.0
 
-var is_sprinting = false
+# It's cleaner to get a direct reference to the nodes
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var navigation_agent = $NavigationAgent2D
 
-var input: Vector2
-enum animationStateEnum{
-	DOWN,
-	UP,
-	SIDE
-}
-var animationState := animationStateEnum.DOWN
+func _ready():
+	animated_sprite.play("idle_front")
 
-func get_input():
-	input.x = Input.get_axis("move_left", "move_right")
-	input.y = Input.get_axis("move_up", "move_down")
-	return input.normalized()
+func _physics_process(delta):
+	# --- 1. SET THE TARGET ON CLICK ---
+	# This is the only thing that should happen on the click itself.
+	if Input.is_action_just_pressed("left_click"):
+		navigation_agent.target_position = get_global_mouse_position()
+
+	# --- 2. CHECK IF WE HAVE ARRIVED ---
+	# If the agent's path is finished, stop moving and play an idle animation.
+	if navigation_agent.is_target_reached():
+		velocity = Vector2.ZERO
+		# A simple way to play an idle animation without it constantly restarting
+		if not animated_sprite.animation.contains("idle"):
+			animated_sprite.play("idle_front")
+		return # Stop further processing if we've arrived
+
+	# --- 3. CALCULATE DIRECTION AND VELOCITY ---
+	# Get the next point on the path and calculate the direction to it.
+	var next_path_position = navigation_agent.get_next_path_position()
+	var direction = global_position.direction_to(next_path_position)
 	
-var playerInput: Vector2:
-	set(value):
-		if playerInput.y > 0:
-			animationState = animationStateEnum.DOWN
-		elif playerInput.y < 0:
-			animationState = animationStateEnum.UP
-		elif playerInput.x != 0:
-			animationState = animationStateEnum.SIDE
-		playerInput = value
+	# This is the correct way to set velocity: direction * speed
+	velocity = direction * speed
 
-func _physics_process(delta: float) -> void:
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	
-	if Input.is_action_just_pressed("sprint"):
-		is_sprinting = true
-		SPEED *= SPRINT_MULT
-	if Input.is_action_just_released("sprint"):
-		is_sprinting = false
-		SPEED /= SPRINT_MULT
-	
-	playerInput = get_input()
-	#Handle Horizontal movement
-	if playerInput.x:
-		velocity.x = playerInput.x * SPEED
-		if playerInput.x < 0:
-			player_sprite.flip_h = true
-		else:
-			player_sprite.flip_h = false
-		if playerInput.y == 0:
-			if is_sprinting:
-				player_sprite.play("run_side")
-			else:
-				player_sprite.play("walk_side")
+	# --- 4. HANDLE ANIMATIONS BASED ON DIRECTION ---
+	# We check which direction (horizontal or vertical) is stronger to decide the animation.
+	if abs(direction.x) > abs(direction.y):
+		# Moving mostly sideways
+		animated_sprite.play("walk_side")
+		animated_sprite.flip_h = direction.x < 0 # Flip if moving left
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED) #Bring to rest
-		if animationState == animationStateEnum.SIDE:
-			player_sprite.play("idle_side")
-	#Handle Vertical movement
-	if playerInput.y:
-		velocity.y = playerInput.y * SPEED
-		if playerInput.y < 0:
-			if is_sprinting:
-				player_sprite.play("run_back")
-			else:
-				player_sprite.play("walk_back")
+		# Moving mostly vertically
+		animated_sprite.flip_h = false
+		if direction.y > 0:
+			# Moving down
+			animated_sprite.play("walk_front")
 		else:
-			if is_sprinting:
-				player_sprite.play("run_front")
-			else:
-				player_sprite.play("walk_front")
-	else:
-		velocity.y = move_toward(velocity.y, 0, SPEED) #Bring to rest
-		match animationState:
-			animationStateEnum.UP:
-				player_sprite.play("idle_back")
-			animationStateEnum.DOWN:
-				player_sprite.play("idle_front")
-
+			# Moving up
+			animated_sprite.play("walk_back")
+			
+	# --- 5. MOVE THE CHARACTER ---
 	move_and_slide()

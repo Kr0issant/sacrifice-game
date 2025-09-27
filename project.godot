@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="Sacrifice Game"
-run/main_scene="uid://b20uthc7myqni"
+run/main_scene="uid://mrk3f7tc7wva"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+SceneHandler="*res://scripts/scene_handler.gd"
+GameHandler="*res://scripts/game_handler.gd"
 
 [dialogic]
 
@@ -30,7 +32,7 @@ directories/dch_directory={
 "scientist": "res://dialogue/characters/scientist.dch"
 }
 directories/dtl_directory={
-"test": "res://dialogue/timelines/test.dtl"
+"wake_up_forest": "res://dialogue/timelines/wake_up_forest.dtl"
 }
 layout/style_directory={
 "": "res://dialogue/style.tres",

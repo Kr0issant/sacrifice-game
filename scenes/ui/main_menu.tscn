@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://mrk3f7tc7wva"]
+
+[ext_resource type="Texture2D" uid="uid://bonkf113jsadm" path="res://assets/images/background.png" id="1_sl1te"]
+[ext_resource type="PackedScene" uid="uid://c35k6i445pccm" path="res://scenes/game_handler.tscn" id="2_fe2o3"]
+
+[sub_resource type="FontFile" id="FontFile_sl1te"]
+cache/0/24/0/ascent = 0.0
+cache/0/24/0/descent = 0.0
+cache/0/24/0/underline_position = 0.0
+cache/0/24/0/underline_thickness = 0.0
+cache/0/24/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fe2o3"]
+bg_color = Color(0.31316045, 0.63659036, 0.83682996, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1g8jr"]
+bg_color = Color(0.34117648, 0.69803923, 0.7411765, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m1kxf"]
+bg_color = Color(0.33940458, 0.69866693, 0.74076635, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="main menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(576, 103.500015)
+scale = Vector2(1.1230468, 1.0634766)
+texture = ExtResource("1_sl1te")
+
+[node name="start button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -195.0
+offset_top = -62.0
+offset_right = -95.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = SubResource("FontFile_sl1te")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_fe2o3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1g8jr")
+text = "START"
+
+[node name="quit button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 88.0
+offset_top = -60.0
+offset_right = 188.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = SubResource("FontFile_sl1te")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_fe2o3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_m1kxf")
+text = "QUIT"
+
+[node name="GameHandler" parent="." instance=ExtResource("2_fe2o3")]
+
+[connection signal="pressed" from="start button" to="GameHandler" method="_on_start_button_pressed"]
