@@ -32,6 +32,7 @@ directories/dch_directory={
 "scientist": "res://dialogue/characters/scientist.dch"
 }
 directories/dtl_directory={
+"test": "res://dialogue/timelines/test.dtl",
 "wake_up_forest": "res://dialogue/timelines/wake_up_forest.dtl"
 }
 layout/style_directory={
