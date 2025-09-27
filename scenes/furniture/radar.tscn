@@ -1,0 +1,110 @@
+[gd_scene load_steps=16 format=3 uid="uid://1rv7mc0d08yn"]
+
+[ext_resource type="Texture2D" uid="uid://cj81vkp581jip" path="res://assets/entities/furniture/Animated-RadarMonitor-Sheet.png" id="1_2tmik"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klx1r"]
+atlas = ExtResource("1_2tmik")
+region = Rect2(0, 0, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0syam"]
+atlas = ExtResource("1_2tmik")
+region = Rect2(0, 96, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otqit"]
+atlas = ExtResource("1_2tmik")
+region = Rect2(0, 192, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbxad"]
+atlas = ExtResource("1_2tmik")
+region = Rect2(0, 288, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6hv3"]
+atlas = ExtResource("1_2tmik")
+region = Rect2(144, 0, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tx5mr"]
+atlas = ExtResource("1_2tmik")
+region = Rect2(144, 96, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oevgk"]
+atlas = ExtResource("1_2tmik")
+region = Rect2(144, 192, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34edb"]
+atlas = ExtResource("1_2tmik")
+region = Rect2(144, 288, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjpca"]
+atlas = ExtResource("1_2tmik")
+region = Rect2(288, 0, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgtgl"]
+atlas = ExtResource("1_2tmik")
+region = Rect2(288, 96, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2c5m"]
+atlas = ExtResource("1_2tmik")
+region = Rect2(288, 192, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87uvh"]
+atlas = ExtResource("1_2tmik")
+region = Rect2(288, 288, 144, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pkspl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_klx1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0syam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otqit")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbxad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6hv3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tx5mr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oevgk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34edb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjpca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgtgl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2c5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87uvh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pd3fa"]
+size = Vector2(96, 84)
+
+[node name="radar" type="StaticBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_pkspl")
+autoplay = "default"
+frame_progress = 0.26294574
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 6)
+shape = SubResource("RectangleShape2D_pd3fa")
