@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var player_sprite = $AnimatedSprite2D
-@export var SPEED: float = 100
+@export var SPEED: float = 150
 @export var SPRINT_MULT: float = 2
 
 var is_sprinting = false

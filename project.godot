@@ -30,7 +30,7 @@ directories/dch_directory={
 "scientist": "res://dialogue/characters/scientist.dch"
 }
 directories/dtl_directory={
-"timeline": "res://dialogue/timeline.dtl"
+"test": "res://dialogue/timelines/test.dtl"
 }
 layout/style_directory={
 "": "res://dialogue/style.tres",
